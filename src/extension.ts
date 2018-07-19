@@ -27,7 +27,8 @@ const enders = ['"', "'", "`", ")", "]", '}'];
 
 function findOccurances(doc: vscode.TextDocument, line: number, char: string): Array<number> {
   var content = doc.lineAt(line);
-  var matches = (content.text + "hack").split(char).reduce((acc, p) => {
+  var regex = new RegExp('\w+|"(?:\\' + char + '|[^' + char + '])+');
+  var matches = (content.text + "hack").split(regex).reduce((acc, p) => {
     var len = p.length + 1;
     if (acc.length > 0) {
       len += acc[acc.length - 1];
